@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CalculatorFormComponent } from './calculator-form.component';
 
+import { CalculatorService } from './calculator.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,7 @@ import { CalculatorFormComponent } from './calculator-form.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [CalculatorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
