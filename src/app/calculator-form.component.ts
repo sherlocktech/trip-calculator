@@ -17,7 +17,11 @@ import { Rate } from './rate-enum';
 export class CalculatorFormComponent {
 
 totalTrip: number;
-totalCurrent: number;
+dailyBurnCurrent: number;
+dailyBurnOngoing: number;
+dailyIncome: number;
+daysToTrip: number;
+moneyForTrip: number;
 
 currentExpensesRate: string;
 
@@ -26,19 +30,28 @@ currentExpensesRate: string;
   constructor(private calc: CalculatorService) {}
   model = {
     expenses: {
-      trip: new ExpensesTrip(),
-      current: new ExpensesCurrent(), 
-      ongoing: new ExpensesOngoing()
+      trip: new ExpensesTrip(500, 250, 200, 200),
+      current: new ExpensesCurrent(1600, 400, 750, 600), 
+      ongoing: new ExpensesOngoing(50, 470)
     },
     income: new Income(5000)
   }
 
   submitted = false;
 
+  onDateChange(inputVal: string) {
+    let date = inputVal;
+    this.model.expenses.trip.flightDate = Date.parse(date);
+  }
+
   onSubmit() { 
     this.submitted = true;
     this.totalTrip = this.calc.getTripExpenses(this.model.expenses.trip);
-    this.totalCurrent = this.calc.getDailyBurn(this.model.expenses.current);
+    this.dailyBurnCurrent = this.calc.getDailyBurnCurrent(this.model.expenses.current);
+    this.dailyBurnOngoing = this.calc.getDailyBurnOngoing(this.model.expenses.ongoing);
+    this.dailyIncome = this.calc.getDailyIncome(this.model.income);
+    this.daysToTrip = this.calc.getDaysTillTrip(this.model.expenses.trip.flightDate);
+    this.moneyForTrip = this.calc.getMoneyForTrip();
    }
 
   //TODO: Remove this when we're done

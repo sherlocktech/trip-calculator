@@ -2,6 +2,25 @@
 <div class="container">
   <h1>Trip Calculator</h1>
 
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Income</h3>
+      <form>
+        <div class="form-group">
+          <label for="monthly-income">Income per Month</label>
+          <input type="number" class="form-control" id="monthly-income"
+                required
+                [(ngModel)]="model.income.income" name="income">
+        </div>
+      </form>
+      <p *ngIf="dailyIncome">Daily Income: {{dailyIncome | currency:'USD':true}}</p>
+    </div>
+    <div class="col-md-6">
+      <h3>Money For Trip</h3>
+      <h4 *ngIf="moneyForTrip">{{moneyForTrip | currency:'USD':true}}</h4>
+    </div>
+  </div>
+
   <h3>Trip Expenses</h3>
   <form>
     <div class="row">
@@ -16,8 +35,11 @@
        <div class="col-xs-2">
          <div class="form-group">
            <label for="flight-date">Flight Date</label>
-           <input type="date" class="form-control" id="flight-date">
+           <input #date type="date" class="form-control" id="flight-date"
+                  required
+                  (change)="onDateChange(date.value)">
         </div>
+        <p *ngIf="daysToTrip">Days till trip: {{daysToTrip}}</p>
       </div>
     </div>
 
@@ -45,60 +67,65 @@
 
   <p *ngIf="totalTrip">Estimated Trip Total: {{totalTrip | currency:'USD':true}}
 
-  <h3>Current Expenses</h3>
-  <form>
-    <!--<div class="form-group">
-      <label for="rate">Rate</label>
-      <select class="form-control" id="rate"
-              required
-              [(ngModel)]="model.expenses.current.rate" name="rate">
-        <option *ngFor="let rate of rates" [value]="rate">{{rate}}</option>
-      </select>
-    </div>-->
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Current Expenses</h3>
+      <form>
+        <div class="form-group">
+          <label for="rent">Rent</label>
+          <input type="number" class="form-control" id="rent"
+                required
+                [(ngModel)]="model.expenses.current.rent" name="rent">
+        </div>
 
-    <div class="form-group">
-      <label for="rent">Rent</label>
-      <input type="number" class="form-control" id="rent"
-             required
-             [(ngModel)]="model.expenses.current.rent" name="rent">
+        <div class="form-group">
+          <label for="utilities">Utilities</label>
+          <input type="number" class="form-control" id="utilities"
+                required
+                [(ngModel)]="model.expenses.current.utilities" name="utilities">
+        </div>
+
+        <div class="form-group">
+          <label for="food">Food</label>
+          <input type="number" class="form-control" id="food"
+                required
+                [(ngModel)]="model.expenses.current.food" name="food">
+        </div>
+
+        <div class="form-group">
+          <label for="fun">Fun</label>
+          <input type="number" class="form-control" id="fun"
+                required
+                [(ngModel)]="model.expenses.current.fun" name="fun">
+        </div>
+      </form>
+
+      <p *ngIf="dailyBurnCurrent">Burn rate per day: {{dailyBurnCurrent | currency:'USD':true}}</p>
     </div>
+    
+    <div class="col-md-6">
+      <h3>Ongoing Expenses</h3>
+      <form>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="number" class="form-control" id="phone"
+                required
+                [(ngModel)]="model.expenses.ongoing.phone" name="phone">
+        </div>
 
-    <div class="form-group">
-      <label for="utilities">Utilities</label>
-      <input type="number" class="form-control" id="utilities"
-             required
-             [(ngModel)]="model.expenses.current.utilities" name="utilities">
+        <div class="form-group">
+          <label for="loans">Loans</label>
+          <input type="number" class="form-control" id="loans"
+                required
+                [(ngModel)]="model.expenses.ongoing.loans" name="loans">
+        </div>
+      </form>
+
+      <p *ngIf="dailyBurnOngoing"> Burn rate per day: {{dailyBurnOngoing | currency:'USD':true}}</p>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label for="food">Food</label>
-      <input type="number" class="form-control" id="food"
-             required
-             [(ngModel)]="model.expenses.current.food" name="food">
-    </div>
 
-    <div class="form-group">
-      <label for="fun">Fun</label>
-      <input type="number" class="form-control" id="fun"
-             required
-             [(ngModel)]="model.expenses.current.fun" name="fun">
-    </div>
-  </form>
+<button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
 
-  <p *ngIf="totalCurrent">Burn rate per day: {{totalCurrent | currency:'USD':true}}</p>
-
-  <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
-
-  <h3>Ongoing Expenses</h3>
-  <form>
-    <div class="form-group">
-      <label for="phone">Phone</label>
-      <input type="number" class="form-control" id="phone">
-    </div>
-
-    <div class="form-group">
-      <label for="loans">Loans</label>
-      <input type="number" class="form-control" id="loans">
-    </div>
-  </form>
 </div>
