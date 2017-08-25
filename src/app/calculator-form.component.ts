@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 
-import { CalculatorService } from './calculator.service';
+import { CalculatorService }  from './calculator.service';
+import { ExpensesTrip }       from './expenses-trip';
+import { ExpensesCurrent }    from './expenses-current';
+import { ExpensesOngoing }    from './expenses-ongoing';
 
-import { ExpensesTrip } from './expenses-trip';
-import { ExpensesCurrent } from './expenses-current';
-import { ExpensesOngoing } from './expenses-ongoing';
-import { Income } from './income';
-
-import { Rate } from './rate-enum';
 
 @Component({
   selector: 'calculator-form',
@@ -34,24 +31,25 @@ currentExpensesRate: string;
       current: new ExpensesCurrent(1600, 400, 750, 600), 
       ongoing: new ExpensesOngoing(50, 470)
     },
-    income: new Income(5000)
+    income: 5000,
+    flightDate: Date.now()
   }
 
   submitted = false;
 
   onDateChange(inputVal: string) {
     let date = inputVal;
-    this.model.expenses.trip.flightDate = Date.parse(date);
+    this.model.flightDate = Date.parse(date);
   }
 
   onSubmit() { 
     this.submitted = true;
-    this.totalTrip = this.calc.getTripExpenses(this.model.expenses.trip);
+    this.totalTrip = this.calc.calculateTripExpensesSum(this.model.expenses.trip);
     this.dailyBurnCurrent = this.calc.getDailyBurnCurrent(this.model.expenses.current);
     this.dailyBurnOngoing = this.calc.getDailyBurnOngoing(this.model.expenses.ongoing);
     this.dailyIncome = this.calc.getDailyIncome(this.model.income);
-    this.daysToTrip = this.calc.getDaysTillTrip(this.model.expenses.trip.flightDate);
-    this.moneyForTrip = this.calc.getMoneyForTrip();
+    this.daysToTrip = this.calc.getDaysTillTrip(this.model.flightDate);
+    this.moneyForTrip = this.calc.calculateMoneyForTrip(this.dailyBurnCurrent, this.dailyBurnOngoing, this.dailyIncome, this.daysToTrip);
    }
 
   //TODO: Remove this when we're done

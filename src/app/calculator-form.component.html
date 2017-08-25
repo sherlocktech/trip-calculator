@@ -1,6 +1,4 @@
-<div class="container">
-  <h1>Trip Calculator</h1>
-
+<div class="col-md-10">
   <div class="row">
     <div class="col-md-6">
       <h3>Income</h3>
@@ -16,7 +14,7 @@
           <label for="monthly-income">Income per Month</label>
           <input type="number" class="form-control" id="monthly-income"
                 required
-                [(ngModel)]="model.income.income" name="income">
+                [(ngModel)]="model.income" name="income">
         </div>
       </form>
       <p *ngIf="dailyIncome">Daily Income: {{dailyIncome | currency:'USD':true}}</p>
@@ -33,14 +31,14 @@
         <div class="form-group">
           <label for="flight">Flight</label>
           <input type="number" class="form-control" id="flight"
-                 required
-                 [(ngModel)]="model.expenses.trip.flight" name="flight">
-         </div>
-       </div>
-       <div class="col-xs-2">
-         <div class="form-group">
-           <label for="flight-date">Flight Date</label>
-           <input #date type="date" class="form-control" id="flight-date"
+                  required
+                  [(ngModel)]="model.expenses.trip.flight" name="flight">
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <div class="form-group">
+            <label for="flight-date">Flight Date</label>
+            <input #date type="date" class="form-control" id="flight-date"
                   required
                   (change)="onDateChange(date.value)">
         </div>
@@ -51,22 +49,22 @@
     <div class="form-group">
       <label for="lodging">Lodging</label>
       <input type="number" class="form-control" id="lodging"
-             required
-             [(ngModel)]="model.expenses.trip.lodging" name="lodging">
+              required
+              [(ngModel)]="model.expenses.trip.lodging" name="lodging">
     </div>
 
     <div class="form-group">
       <label for="foodTrip">Food</label>
       <input type="number" class="form-control" id="foodTrip"
-             required
-             [(ngModel)]="model.expenses.trip.food" name="food">
+              required
+              [(ngModel)]="model.expenses.trip.food" name="food">
     </div>
 
     <div class="form-group">
       <label for="activities">Activities</label>
       <input type="number" class="form-control" id="activities"
-             required
-             [(ngModel)]="model.expenses.trip.activities" name="activities">
+              required
+              [(ngModel)]="model.expenses.trip.activities" name="activities">
     </div>
   </form>
 
@@ -131,6 +129,6 @@
   </div>
 
 
-<button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
-
+  <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
 </div>
+

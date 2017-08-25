@@ -1,58 +1,49 @@
-import { ExpensesTrip }     from './expenses-trip';
+import { Rate }             from './rate-enum';
 import { ExpensesCurrent }  from './expenses-current';
 import { ExpensesOngoing }  from './expenses-ongoing';
-import { Income }           from './income';
-import { Rate }             from './rate-enum';
+import { ExpensesTrip }     from './expenses-trip';
 
 const DAYS_PER_MONTH = 30; //in the future this should come from selection on component
 const MS_PER_DAY = 86400000;
 
 export class CalculatorService {
-  private daysTillTrip: number;
-  private burnRateCurrent: number;
-  private burnRateOngoing: number;
-  private dailyIncome: number;
-  private moneyForTrip: number;
-
-  public getTripExpenses (tripExpenses: ExpensesTrip) {
-    let tripExpensesSum = tripExpenses.total;
-    return tripExpensesSum;
-  }
-
   public getDailyBurnCurrent (currentExpenses: ExpensesCurrent) {
-    let currentExpensesSum = currentExpenses.total;
+    let currentExpensesSum = currentExpenses.sum;
 
-    this.burnRateCurrent = currentExpensesSum  / DAYS_PER_MONTH;
-    
-    return this.burnRateCurrent;
+    return currentExpensesSum / DAYS_PER_MONTH;
   }
 
   public getDailyBurnOngoing (ongoingExpeses: ExpensesOngoing) {
     let ongoingExpensesSum = ongoingExpeses.total;
 
-    this.burnRateOngoing = ongoingExpensesSum / DAYS_PER_MONTH;
-
-    return this.burnRateOngoing;
+    return ongoingExpensesSum / DAYS_PER_MONTH;
   }
   
-  public getDailyIncome (income: Income) {
-    this.dailyIncome = income.income / DAYS_PER_MONTH
-    return this.dailyIncome;
+  public getDailyIncome (income: number) {
+    let dailyIncome = income / DAYS_PER_MONTH
+    return dailyIncome;
   }
 
   public getDaysTillTrip (tripDate: number) {
     let diffMilli = tripDate - Date.now();
 
-    this.daysTillTrip = Math.floor(diffMilli / MS_PER_DAY);
-    return this.daysTillTrip;
+    return Math.floor(diffMilli / MS_PER_DAY);
   }
 
-  public getMoneyForTrip () {
-    let expenseRate = this.burnRateCurrent + this.burnRateOngoing;
-    let burnRateNet = this.dailyIncome - expenseRate;
-    
-    this.moneyForTrip = burnRateNet * this.daysTillTrip;
+  public calculateTripExpensesSum (expensesTrip: ExpensesTrip) {
+    let sum = expensesTrip.total;
+    return sum;
+  }
 
-    return this.moneyForTrip;
+  public calculateCurrentExpensesSum(expensesCurrent: ExpensesCurrent) {
+    let sum = expensesCurrent.sum;
+    return sum;
+  }
+
+  public calculateMoneyForTrip (burnRateCurrent, burnRateOngoing, dailyIncome, daysToTrip) {
+    let expenseRate = burnRateCurrent + burnRateOngoing;
+    let burnRateNet = dailyIncome - expenseRate;
+    
+    return burnRateNet * daysToTrip;
   }
 }
