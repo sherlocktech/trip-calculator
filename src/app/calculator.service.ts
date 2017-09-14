@@ -7,6 +7,12 @@ const DAYS_PER_MONTH = 30; //in the future this should come from selection on co
 const MS_PER_DAY = 86400000;
 
 export class CalculatorService {
+  private _expensesCurrent: Map<string, number>;
+  private _expensesOngoing: Map<string, number>;
+  private _expensesTrip: Map<string, number>;
+  private _income: number;
+  private _flightDate: Date;
+
   public getDailyBurnCurrent (currentExpenses: ExpensesCurrent) {
     let currentExpensesSum = currentExpenses.sum;
 
@@ -45,5 +51,25 @@ export class CalculatorService {
     let burnRateNet = dailyIncome - expenseRate;
     
     return burnRateNet * daysToTrip;
+  }
+
+  public addCurrentExpense(expense: string, val: number) {
+    this._expensesCurrent.set(expense, val);
+  }
+
+  public addOngoingExpense(expense: string, val: number) {
+    this._expensesOngoing.set(expense, val);
+  }
+
+  public addTripExpense(expense: string, val: number) {
+    this._expensesTrip.set(expense, val);
+  }
+
+  public set income(val: number) {
+    this._income = val;
+  }
+
+  public set flightDate(date: Date) {
+    this._flightDate = date;
   }
 }
