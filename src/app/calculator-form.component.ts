@@ -50,6 +50,18 @@ currentExpensesRate: string;
     this.dailyIncome = this.calc.getDailyIncome(this.model.income);
     this.daysToTrip = this.calc.getDaysTillTrip(this.model.flightDate);
     this.moneyForTrip = this.calc.calculateMoneyForTrip(this.dailyBurnCurrent, this.dailyBurnOngoing, this.dailyIncome, this.daysToTrip);
+
+    this.calc.income = this.model.income;
+   }
+
+   onIncomeInput(val: number) {
+     console.log("income changed to " + val);
+     this.calc.income = val;
+   }
+
+   onTripExpenseInput(expense: string, val: number) {
+     console.log(expense + " changed to " + val);
+     this.calc.addTripExpense(expense, val);
    }
 
   //TODO: Remove this when we're done

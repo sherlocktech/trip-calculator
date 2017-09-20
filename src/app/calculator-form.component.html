@@ -3,9 +3,6 @@
     <div class="col-md-6">
       <h3>Income</h3>
     </div>
-    <div class="col-md-6">
-      <h3>Money For Trip</h3>
-    </div>
   </div>
   <div class="row">
     <div class="col-md-6">
@@ -14,7 +11,7 @@
           <label for="monthly-income">Income per Month</label>
           <input type="number" class="form-control" id="monthly-income"
                 required
-                [(ngModel)]="model.income" name="income">
+                name="income" #box (input)="onIncomeInput(box.value)">
         </div>
       </form>
       <p *ngIf="dailyIncome">Daily Income: {{dailyIncome | currency:'USD':true}}</p>
@@ -32,7 +29,7 @@
           <label for="flight">Flight</label>
           <input type="number" class="form-control" id="flight"
                   required
-                  [(ngModel)]="model.expenses.trip.flight" name="flight">
+                  #box (input)="onTripExpenseInput(box.name, box.value)" name="flight">
           </div>
         </div>
         <div class="col-xs-2">
