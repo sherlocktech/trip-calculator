@@ -4,16 +4,14 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule }     from '@angular/http';
 
 import { AppComponent }             from './app.component';
-import { CalculatorFormComponent }  from './calculator-form.component';
-import { SummaryComponent }                  from './summary.component';        
+import { CalculatorFormComponent }  from './calculator-form.component';      
 
 import { CalculatorService } from './calculator.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalculatorFormComponent,
-    SummaryComponent
+    CalculatorFormComponent
   ],
   imports: [
     BrowserModule,

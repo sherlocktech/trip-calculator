@@ -9,15 +9,12 @@
       <form>
         <div class="form-group">
           <label for="monthly-income">Income per Month</label>
-          <input type="number" class="form-control" id="monthly-income"
+          <input #inputIncome type="number" class="form-control" id="monthly-income"
                 required
-                name="income" #box (input)="onIncomeInput(box.value)">
+                name="income" (input)="onIncomeInput(inputIncome.value)">
         </div>
       </form>
       <p *ngIf="dailyIncome">Daily Income: {{dailyIncome | currency:'USD':true}}</p>
-    </div>
-    <div class="col-md-6">
-      <h4 *ngIf="moneyForTrip">{{moneyForTrip | currency:'USD':true}}</h4>
     </div>
   </div>
 
@@ -27,17 +24,17 @@
       <div class="col-xs-2">
         <div class="form-group">
           <label for="flight">Flight</label>
-          <input type="number" class="form-control" id="flight"
+          <input #inputFlight type="number" class="form-control" id="flight"
                   required
-                  #box (input)="onTripExpenseInput(box.name, box.value)" name="flight">
+                  (input)="onTripExpenseInput(inputFlight.name, inputFlight.value)" name="flight">
           </div>
         </div>
         <div class="col-xs-2">
           <div class="form-group">
             <label for="flight-date">Flight Date</label>
-            <input #date type="date" class="form-control" id="flight-date"
+            <input #inputDate type="date" class="form-control" id="flight-date"
                   required
-                  (change)="onDateChange(date.value)">
+                  (change)="onDateChange(inputDate.value)">
         </div>
         <p *ngIf="daysToTrip">Days till trip: {{daysToTrip}}</p>
       </div>
@@ -45,27 +42,25 @@
 
     <div class="form-group">
       <label for="lodging">Lodging</label>
-      <input type="number" class="form-control" id="lodging"
+      <input #inputLodging type="number" class="form-control" id="lodging"
               required
-              [(ngModel)]="model.expenses.trip.lodging" name="lodging">
+              (input)="onTripExpenseInput(inputLodging.name, inputLodging.value)" name="lodging">
     </div>
 
     <div class="form-group">
       <label for="foodTrip">Food</label>
-      <input type="number" class="form-control" id="foodTrip"
+      <input #inputFood type="number" class="form-control" id="foodTrip"
               required
-              [(ngModel)]="model.expenses.trip.food" name="food">
+              (input)="onTripExpenseInput(inputFood.name, inputFood.value)" name="food">
     </div>
 
     <div class="form-group">
       <label for="activities">Activities</label>
-      <input type="number" class="form-control" id="activities"
+      <input #inputActivities type="number" class="form-control" id="activities"
               required
-              [(ngModel)]="model.expenses.trip.activities" name="activities">
+              (input)="onTripExpenseInput(inputActivities.name, inputActivities.value)" name="activities">
     </div>
   </form>
-
-  <p *ngIf="totalTrip">Estimated Trip Total: {{totalTrip | currency:'USD':true}}
 
   <div class="row">
     <div class="col-md-6">
@@ -127,6 +122,45 @@
 
 
   <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
+  <p>{{tripExpensesSum}}</p>
 </div>
-<summary></summary>
+<div class="col-md-2">
+  <h2>Summary</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Daily Income</h4>
+    </div>
+    <div class="col-md-6">
+      <p>{{dailyIncome | currency:'USD':true}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Burn Rate</h4>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Trip Total</h4>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Days Till Trip</h4>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Money For Trip</h4>
+    </div>
+   <div class="col-md-6">
+   </div>
+  </div>
+</div>
 

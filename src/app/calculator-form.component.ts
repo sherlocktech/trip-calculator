@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter }    from '@angular/core';
 
 import { CalculatorService }  from './calculator.service';
-import { ExpensesTrip }       from './expenses-trip';
 import { ExpensesCurrent }    from './expenses-current';
 import { ExpensesOngoing }    from './expenses-ongoing';
 
@@ -13,21 +12,19 @@ import { ExpensesOngoing }    from './expenses-ongoing';
 })
 export class CalculatorFormComponent {
 
-totalTrip: number;
-dailyBurnCurrent: number;
-dailyBurnOngoing: number;
-dailyIncome: number;
-daysToTrip: number;
-moneyForTrip: number;
+  dailyBurnCurrent: number;
+  dailyBurnOngoing: number;
+  dailyIncome: number;
+  daysToTrip: number;
+  moneyForTrip: number;
 
-currentExpensesRate: string;
+  currentExpensesRate: string;
 
 // rates = [30, 7, 1]; // need to come up with a good solution for choosing rates
 
   constructor(private calc: CalculatorService) {}
   model = {
     expenses: {
-      trip: new ExpensesTrip(500, 250, 200, 200),
       current: new ExpensesCurrent(1600, 400, 750, 600), 
       ongoing: new ExpensesOngoing(50, 470)
     },
@@ -35,6 +32,7 @@ currentExpensesRate: string;
     flightDate: Date.now()
   }
 
+  tripExpensesSum: number;
   submitted = false;
 
   onDateChange(inputVal: string) {
@@ -44,7 +42,6 @@ currentExpensesRate: string;
 
   onSubmit() { 
     this.submitted = true;
-    this.totalTrip = this.calc.calculateTripExpensesSum(this.model.expenses.trip);
     this.dailyBurnCurrent = this.calc.getDailyBurnCurrent(this.model.expenses.current);
     this.dailyBurnOngoing = this.calc.getDailyBurnOngoing(this.model.expenses.ongoing);
     this.dailyIncome = this.calc.getDailyIncome(this.model.income);
@@ -52,18 +49,20 @@ currentExpensesRate: string;
     this.moneyForTrip = this.calc.calculateMoneyForTrip(this.dailyBurnCurrent, this.dailyBurnOngoing, this.dailyIncome, this.daysToTrip);
 
     this.calc.income = this.model.income;
-   }
+    console.log(this.calc.calculateTripExpensesSum2());
+  }
 
-   onIncomeInput(val: number) {
-     console.log("income changed to " + val);
-     this.calc.income = val;
-   }
+  onIncomeInput(val: number) {
+    val = Number(val);
 
-   onTripExpenseInput(expense: string, val: number) {
-     console.log(expense + " changed to " + val);
-     this.calc.addTripExpense(expense, val);
-   }
+    console.log("income changed to "+ val);
 
-  //TODO: Remove this when we're done
-  get diagnostic() { return JSON.stringify(this.model); }
+    this.calc.income = val;
+  }
+
+  onTripExpenseInput(expense: string, val: number) {
+    val = Number(val);
+    console.log(expense + " changed to " + val);
+    this.calc.addTripExpense(expense, val);
+  }
 }
