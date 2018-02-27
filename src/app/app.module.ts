@@ -7,11 +7,13 @@ import { AppComponent }             from './app.component';
 import { CalculatorFormComponent }  from './calculator-form.component';      
 
 import { CalculatorService } from './calculator.service';
+import { SummaryComponent } from "app/summary.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalculatorFormComponent
+    CalculatorFormComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,
