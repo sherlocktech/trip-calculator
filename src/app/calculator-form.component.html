@@ -1,12 +1,7 @@
-<div class="container">
-  <h1>Trip Calculator</h1>
-
+<div class="col-md-10">
   <div class="row">
     <div class="col-md-6">
       <h3>Income</h3>
-    </div>
-    <div class="col-md-6">
-      <h3>Money For Trip</h3>
     </div>
   </div>
   <div class="row">
@@ -14,15 +9,12 @@
       <form>
         <div class="form-group">
           <label for="monthly-income">Income per Month</label>
-          <input type="number" class="form-control" id="monthly-income"
+          <input #inputIncome type="number" class="form-control" id="monthly-income"
                 required
-                [(ngModel)]="model.income.income" name="income">
+                name="income" (input)="onIncomeInput(inputIncome.value)">
         </div>
       </form>
       <p *ngIf="dailyIncome">Daily Income: {{dailyIncome | currency:'USD':true}}</p>
-    </div>
-    <div class="col-md-6">
-      <h4 *ngIf="moneyForTrip">{{moneyForTrip | currency:'USD':true}}</h4>
     </div>
   </div>
 
@@ -32,17 +24,17 @@
       <div class="col-xs-2">
         <div class="form-group">
           <label for="flight">Flight</label>
-          <input type="number" class="form-control" id="flight"
-                 required
-                 [(ngModel)]="model.expenses.trip.flight" name="flight">
-         </div>
-       </div>
-       <div class="col-xs-2">
-         <div class="form-group">
-           <label for="flight-date">Flight Date</label>
-           <input #date type="date" class="form-control" id="flight-date"
+          <input #inputFlight type="number" class="form-control" id="flight"
                   required
-                  (change)="onDateChange(date.value)">
+                  (input)="onTripExpenseInput(inputFlight.name, inputFlight.value)" name="flight">
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <div class="form-group">
+            <label for="flight-date">Flight Date</label>
+            <input #inputDate type="date" class="form-control" id="flight-date"
+                  required
+                  (change)="onDateChange(inputDate.value)">
         </div>
         <p *ngIf="daysToTrip">Days till trip: {{daysToTrip}}</p>
       </div>
@@ -50,27 +42,25 @@
 
     <div class="form-group">
       <label for="lodging">Lodging</label>
-      <input type="number" class="form-control" id="lodging"
-             required
-             [(ngModel)]="model.expenses.trip.lodging" name="lodging">
+      <input #inputLodging type="number" class="form-control" id="lodging"
+              required
+              (input)="onTripExpenseInput(inputLodging.name, inputLodging.value)" name="lodging">
     </div>
 
     <div class="form-group">
       <label for="foodTrip">Food</label>
-      <input type="number" class="form-control" id="foodTrip"
-             required
-             [(ngModel)]="model.expenses.trip.food" name="food">
+      <input #inputFood type="number" class="form-control" id="foodTrip"
+              required
+              (input)="onTripExpenseInput(inputFood.name, inputFood.value)" name="food">
     </div>
 
     <div class="form-group">
       <label for="activities">Activities</label>
-      <input type="number" class="form-control" id="activities"
-             required
-             [(ngModel)]="model.expenses.trip.activities" name="activities">
+      <input #inputActivities type="number" class="form-control" id="activities"
+              required
+              (input)="onTripExpenseInput(inputActivities.name, inputActivities.value)" name="activities">
     </div>
   </form>
-
-  <p *ngIf="totalTrip">Estimated Trip Total: {{totalTrip | currency:'USD':true}}
 
   <div class="row">
     <div class="col-md-6">
@@ -131,6 +121,46 @@
   </div>
 
 
-<button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
-
+  <button type="submit" class="btn btn-default" (click)="onSubmit()">Submit</button>
+  <p>{{tripExpensesSum}}</p>
 </div>
+<div class="col-md-2">
+  <h2>Summary</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Daily Income</h4>
+    </div>
+    <div class="col-md-6">
+      <p>{{dailyIncome | currency:'USD':true}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Burn Rate</h4>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Trip Total</h4>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Days Till Trip</h4>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Money For Trip</h4>
+    </div>
+   <div class="col-md-6">
+   </div>
+  </div>
+</div>
+
