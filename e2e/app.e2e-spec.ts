@@ -1,13 +1,24 @@
-import { TripCalculatorPage } from './app.po';
+import { HomePage } from './pages/home.po';
 
 // Christina has heard about a cool new app that will
 // help her decide if she is saving enough for her upcoming
-// trip. She goes to check out its homepage
+// trip.
+describe('trip-calculator Homepage', () => {
+  const page = new HomePage();
 
-// She notices the page title and header mention trip calculator
-/**
- * TEST GOES HERE
- */
+  // She goes to check out its homepage
+  page.navigateTo();
+
+  // She notices the page title
+  it(`should have as title 'TripCalculator'`, () => {
+    expect(page.getTitle()).toEqual('TripCalculator');
+  });
+
+  // She notices the header mentions trip calculator
+  it(`should have as header 'Trip Calculator'`, () => {
+    expect(page.getHeader()).toContain('Trip Calculator');
+  });
+});
 
 // She is invited to enter some trip information.
 // She notices a date input labelled "Trip date"
@@ -73,17 +84,3 @@ import { TripCalculatorPage } from './app.po';
 // When she hits enter, the page updates and has "No" written
 // underneath her input. Dissappointed to see she isn't saving
 // enough, Hannah makes plans to adjust her savings rate.
-
-
-describe('trip-calculator App', () => {
-  let page: TripCalculatorPage;
-
-  beforeEach(() => {
-    page = new TripCalculatorPage();
-  });
-
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
-});
