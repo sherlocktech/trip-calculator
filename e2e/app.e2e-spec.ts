@@ -16,25 +16,25 @@ describe('trip-calculator Homepage', () => {
 
   // She notices the header mentions trip calculator
   it(`should have as header 'Trip Calculator'`, () => {
-    expect(page.getHeader()).toContain('Trip Calculator');
+    expect(page.getHeaderText()).toContain('Trip Calculator');
+  });
+
+  // She is invited to enter some trip information.
+  // She notices a date input labeled "Months till trip"
+  it(`should have date input labeled 'Months till trip'`, () => {
+    expect(page.getDateInputLabelText()).toEqual('Months till trip');
+  });
+
+  // She notices a text box labeled "Trip cost"
+  it(`should have text box labeled 'Trip cost'`, () => {
+    expect(page.getTripCostTextBoxLabelText()).toEqual('Trip cost');
+  });
+
+  // She notices a text box labelled "Savings per month"
+  it(`should have text box labeled 'Savings per month'`, () => {
+    expect(page.getSavingsRateTextBoxLabelText()).toEqual('Savings per month');
   });
 });
-
-// She is invited to enter some trip information.
-// She notices a date input labelled "Trip date"
-/**
- * TEST GOES HERE
- */
-
-// She notices a text box labelled "Trip cost"
-/**
- * TEST GOES HERE
- */
-
-// She notices a text box labelled "Savings rate"
-/**
- * TEST GOES HERE
- */
 
 // Christina is going to Mexico in a year, so she selects
 // a date one year from now for the trip date
