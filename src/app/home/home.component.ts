@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent {
   title = 'Trip Calculator';
+  months: number;
+  cost: number;
+  savings: number;
 
   constructor() { }
 
