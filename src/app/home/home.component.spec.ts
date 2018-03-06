@@ -67,7 +67,7 @@ describe('HomeComponent', () => {
     const val = (1).toString();
 
     setInputValue(dateInput, val).then(() => {
-      const monthsVal = component.months.toString();
+      const monthsVal = component.trip.months.toString();
       expect(monthsVal).toBe(val);
     })
   }));
@@ -77,7 +77,7 @@ describe('HomeComponent', () => {
     const val = (1000).toString();
 
     setInputValue(costInput, val).then(() => {
-      const costVal = component.cost.toString();
+      const costVal = component.trip.cost.toString();
       expect(costVal).toBe(val);
     })
   }));
@@ -87,8 +87,22 @@ describe('HomeComponent', () => {
     const val = (1000).toString();
 
     setInputValue(savingsInput, val).then(() => {
-      const savingsVal = component.savings.toString();
-      expect(savingsVal).toBe(val);
+      const savingsRateVal = component.trip.savingsRate.toString();
+      expect(savingsRateVal).toBe(val);
+    })
+  }));
+
+  it(`should calculate correct savings`, async(() => {
+    const dateInput: HTMLInputElement = fixture.debugElement.query(dateField).query(By.css('input')).nativeElement;
+    const savingsRateInput: HTMLInputElement = fixture.debugElement.query(savingsField).query(By.css('input')).nativeElement;
+    const dateVal = 4;
+    const savingsRateVal = 200;
+    const expected = 4 * 200;
+
+    setInputValue(dateInput, dateVal.toString());
+    setInputValue(savingsRateInput, savingsRateVal.toString()).then(() => {
+      const savings = component.trip.savings;
+      expect(savings).toBe(expected);
     })
   }));
 
