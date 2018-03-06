@@ -2,25 +2,55 @@ import { browser, element, by } from 'protractor';
 import { AppPage } from './app.po';
 
 export class HomePage extends AppPage {
-  private readonly url: string = '/';
+  private readonly url = '/';
+  private readonly dateField = element(by.css('#date-field'));
+  private readonly costField = element(by.css('#cost-field'));
+  private readonly savingsField = element(by.css('#savings-field'));
 
   navigateTo() {
     return super.navigateTo(this.url);
   }
 
-  getHeaderText() {
+  getHeader() {
     return element(by.tagName('h1')).getText();
   }
 
-  getDateInputLabelText() {
-    return element(by.css('#date-field  label')).getText();
+  setDate(numOfMonths: number) {
+    this.dateField.$('input').click();
+    this.dateField.$('input').sendKeys(numOfMonths);
   }
 
-  getTripCostTextBoxLabelText() {
-    return element(by.css('#cost-field label')).getText();
+  getDateInput() {
+    return this.dateField.$('input').getAttribute('value');
   }
 
-  getSavingsRateTextBoxLabelText() {
-    return element(by.css('#savings-field label')).getText();
+  getDateInputLabel() {
+    return this.dateField.$('label').getText();
+  }
+
+  setTripCost(cost: number) {
+    this.costField.$('input').click();
+    this.costField.$('input').sendKeys(cost);
+  }
+
+  getTripCostInput() {
+    return this.costField.$('input').getAttribute('value');
+  }
+
+  getTripCostTextBoxLabel() {
+    return this.costField.$('label').getText();
+  }
+
+  setSavingsRate(savingsRate: number) {
+    this.savingsField.$('input').click();
+    this.savingsField.$('input').sendKeys(savingsRate);
+  }
+
+  getSavingsRateInput() {
+    return this.savingsField.$('input').getAttribute('value');
+  }
+
+  getSavingsRateTextBoxLabel() {
+    return this.savingsField.$('label').getText();
   }
 }
