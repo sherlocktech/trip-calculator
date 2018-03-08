@@ -1,8 +1,8 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
   <h1>{{title}}</h1>
 </mat-toolbar>
 
-<mat-card class="form">
+<mat-card class="form" color="background">
   <mat-card-title>Calculator Form</mat-card-title>
   <mat-form-field id="date-field">
     <mat-label>Months till trip</mat-label>
@@ -19,5 +19,12 @@
     <input matInput #savingsRateInput
       (input)="onSavingsRateInput(savingsRateInput.value)">
   </mat-form-field>
+  <button mat-button id="submit" color="accent" (click)="onSubmit()">
+    Submit
+  </button>
+</mat-card>
+
+<mat-card id="result-field">
+  <p>{{result}}</p>
 </mat-card>
   
