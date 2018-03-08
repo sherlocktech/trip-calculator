@@ -58,13 +58,14 @@ describe('trip-calculator Homepage', () => {
     page.setSavingsRate(savingsRate);
     expect(page.getSavingsRateInput()).toBe(savingsRate.toString());
   });
-});
 
-// When she hits enter, the page updates and has "Yes" written
-// underneath her input
-/**
- * TEST GOES HERE
- */
+  // When she clicks Submit, the page updates and has "Yes" written
+  // underneath her input
+  it(`should display 'Yes'`, () => {
+    page.clickSubmit();
+    expect(page.getResult()).toBe('Yes');
+  })
+});
 
 // Happy to know that she is saving enough, Christina shares
 // the url with her friend Hannah who is also planning a trip.

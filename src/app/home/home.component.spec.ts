@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatToolbarModule, MatCardModule,
-  MatFormFieldModule, MatInputModule
+  MatFormFieldModule, MatInputModule,
+  MatButtonModule
 } from '@angular/material';
 
 import { HomeComponent } from './home.component';
@@ -25,7 +26,8 @@ describe('HomeComponent', () => {
         MatToolbarModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatButtonModule
       ]
     })
     .compileComponents();
@@ -92,19 +94,21 @@ describe('HomeComponent', () => {
     })
   }));
 
-  it(`should calculate correct savings`, async(() => {
-    const dateInput: HTMLInputElement = fixture.debugElement.query(dateField).query(By.css('input')).nativeElement;
-    const savingsRateInput: HTMLInputElement = fixture.debugElement.query(savingsField).query(By.css('input')).nativeElement;
-    const dateVal = 4;
-    const savingsRateVal = 200;
-    const expected = 4 * 200;
-
-    setInputValue(dateInput, dateVal.toString());
-    setInputValue(savingsRateInput, savingsRateVal.toString()).then(() => {
-      const savings = component.trip.savings;
-      expect(savings).toBe(expected);
+  it(`should display 'Yes' when savings rate is adequate for cost, 'No' otherwise`, async(() => {
+    component.trip.cost = 5000;
+    component.trip.months = 5;
+    component.trip.savingsRate = 1000;
+    clickSubmit().then(() => {
+      expect(component.result).toBe('Yes')
     })
   }));
+
+  function clickSubmit() {
+    const button: HTMLButtonElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
+    button.click();
+    button.dispatchEvent(new Event('click'));
+    return fixture.whenStable();
+  }
 
   function setInputValue(inputElement: HTMLInputElement, value: string) {
     inputElement.value = value;

@@ -8,6 +8,7 @@ import { Trip } from 'app/trip';
 })
 export class HomeComponent {
   title = 'Trip Calculator';
+  result: string;
   trip = new Trip();
 
   onCostInput(cost: string) {
@@ -23,5 +24,13 @@ export class HomeComponent {
   onSavingsRateInput(savingsRate: string) {
     const sr = parseFloat(savingsRate);
     this.trip.savingsRate = isNaN(sr) ? 0 : sr;
+  }
+
+  onSubmit() {
+    if (this.trip.savings >= this.trip.cost) {
+      this.result = 'Yes';
+    } else {
+      this.result = 'No';
+    }
   }
 }

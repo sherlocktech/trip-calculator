@@ -6,9 +6,14 @@ export class HomePage extends AppPage {
   private readonly dateField = element(by.css('#date-field'));
   private readonly costField = element(by.css('#cost-field'));
   private readonly savingsField = element(by.css('#savings-field'));
+  private readonly resultField = element(by.css('#result-field'));
 
   navigateTo() {
     return super.navigateTo(this.url);
+  }
+
+  clickSubmit() {
+    element(by.tagName('button')).click();
   }
 
   getHeader() {
@@ -52,5 +57,9 @@ export class HomePage extends AppPage {
 
   getSavingsRateTextBoxLabel() {
     return this.savingsField.$('label').getText();
+  }
+
+  getResult() {
+    return this.resultField.$('p').getText();
   }
 }
