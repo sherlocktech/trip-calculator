@@ -1,18 +1,15 @@
 import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { DebugElement, Predicate } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MatToolbarModule, MatCardModule,
-  MatFormFieldModule, MatInputModule,
-  MatButtonModule
-} from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { HomeComponent } from './home.component';
+import { FormComponent } from './form.component';
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+  let component: FormComponent;
+  let fixture: ComponentFixture<FormComponent>;
 
   const dateField: Predicate<DebugElement> = By.css('#date-field');
   const costField: Predicate<DebugElement> = By.css('#cost-field');
@@ -20,21 +17,18 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [ FormComponent ],
       imports: [
+        FormsModule,
         NoopAnimationsModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule
+        NgbModule
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

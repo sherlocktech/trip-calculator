@@ -1,10 +1,10 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatCardModule, MatFormFieldModule,
-  MatInputModule } from '@angular/material';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from 'app/home/home.component';
+import { FormComponent } from 'app/form/form.component';
 
 
 describe('AppComponent', () => {
@@ -15,14 +15,12 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        HomeComponent
+        FormComponent
       ],
       imports: [
+        FormsModule,
         NoopAnimationsModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule
+        NgbModule
       ]
     }).compileComponents();
   }));

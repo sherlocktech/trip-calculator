@@ -16,8 +16,9 @@ export class HomePage extends AppPage {
     element(by.tagName('button')).click();
   }
 
-  getHeader() {
-    return element(by.tagName('h1')).getText();
+  getNavBrand() {
+    const nav = element(by.tagName('nav'));
+    return nav.$('.navbar-brand').getText();
   }
 
   setDate(numOfMonths: number) {
@@ -60,6 +61,6 @@ export class HomePage extends AppPage {
   }
 
   getResult() {
-    return this.resultField.$('p').getText();
+    return this.resultField.getText();
   }
 }
