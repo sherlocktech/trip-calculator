@@ -19,8 +19,6 @@ Angular has a lot of useful features as well as tools like [Angular CLI](https:/
 ### Getting Started
 
 The project depends on [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/).
-If you don't already have it, you will need to install Node - which includes npm
- in its install - before anything else. You'll use npm to get the rest.
 
 To check if you already have Node and npm open a command line interface:
 ```
@@ -29,7 +27,10 @@ v8.9.4
 > npm --version
 5.7.1
 ```
-If you don't have these tools install them from their website.
+
+If you don't already have it, you will need to install Node - which includes npm
+ in its install - from its website before anything else. You'll use npm to get
+ the rest.
 
 Now you can get Angular CLI with npm. Make sure to install it globally:
 ```
