@@ -2,14 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { Trip } from 'app/trip';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
 })
-export class HomeComponent {
-  title = 'Trip Calculator';
+export class FormComponent {
   result: string;
   trip = new Trip();
+
+  submitted = false;
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.trip.savings >= this.trip.cost) {
+      this.result = 'Yes';
+    } else {
+      this.result = 'No';
+    }
+  }
+
+  // TODO: Remove this
+  get diagnostic() { return JSON.stringify(this.trip); }
 
   onCostInput(cost: string) {
     const c = parseFloat(cost);
@@ -24,13 +37,5 @@ export class HomeComponent {
   onSavingsRateInput(savingsRate: string) {
     const sr = parseFloat(savingsRate);
     this.trip.savingsRate = isNaN(sr) ? 0 : sr;
-  }
-
-  onSubmit() {
-    if (this.trip.savings >= this.trip.cost) {
-      this.result = 'Yes';
-    } else {
-      this.result = 'No';
-    }
   }
 }

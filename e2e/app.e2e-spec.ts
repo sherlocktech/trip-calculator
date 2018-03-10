@@ -15,24 +15,24 @@ describe('trip-calculator Homepage', () => {
   });
 
   // She notices the header mentions trip calculator
-  it(`should have as header 'Trip Calculator'`, () => {
-    expect(page.getHeader()).toBe('Trip Calculator');
+  it(`should have 'Trip Calculator' in nav`, () => {
+    expect(page.getNavBrand()).toBe('Trip Calculator');
   });
 
   // She is invited to enter some trip information.
   // She notices a date input labeled "Months till trip"
   it(`should have date input labeled 'Months till trip'`, () => {
-    expect(page.getDateInputLabel()).toBe('Months till trip');
+    expect(page.getDateInputLabel()).toContain('Months till trip');
   });
 
   // She notices a text box labeled "Trip cost"
   it(`should have text box labeled 'Trip cost'`, () => {
-    expect(page.getTripCostTextBoxLabel()).toBe('Trip cost');
+    expect(page.getTripCostTextBoxLabel()).toContain('Trip cost');
   });
 
   // She notices a text box labelled "Savings per month"
   it(`should have text box labeled 'Savings per month'`, () => {
-    expect(page.getSavingsRateTextBoxLabel()).toBe('Savings per month');
+    expect(page.getSavingsRateTextBoxLabel()).toContain('Savings per month');
   });
 
   // Christina is going to Mexico in a year, so she types

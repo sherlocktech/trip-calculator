@@ -1,0 +1,26 @@
+<h1>Trip Form</h1>
+<form (ngSubmit)="onSubmit()" #tripForm="ngForm">
+  <div class="form-group" id="date-field">
+    <label for="date">Months till trip</label>
+    <input class="form-control" #date="ngModel" required [(ngModel)]="trip.months" name="date">
+  </div>
+
+  <div class="form-group" id="cost-field">
+    <label for="cost">Trip cost</label>
+    <input class="form-control" #cost="ngModel" required [(ngModel)]="trip.cost" name="cost">
+  </div>
+
+  <div class="form-group" id="savings-field">
+    <label for="savingsRate">Savings per month</label>
+    <input class="form-control" #savingsRate="ngModel" required [(ngModel)]="trip.savingsRate" name="savingsRate">
+  </div>
+
+  <button type="submit" class="btn" id="submit" [disabled]="tripForm.form.invalid">
+    Submit
+  </button>
+</form>
+
+
+<div class="card" [hidden]="!submitted" id="result-field">
+  <div class="card-body">{{result}}</div>
+</div>
