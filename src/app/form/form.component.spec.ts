@@ -1,13 +1,11 @@
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { DebugElement, Predicate } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormComponent } from './form.component';
 
-describe('HomeComponent', () => {
+describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
 
@@ -19,9 +17,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ FormComponent ],
       imports: [
-        FormsModule,
-        NoopAnimationsModule,
-        NgbModule
+        FormsModule
       ]
     })
     .compileComponents();
@@ -30,7 +26,6 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FormComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -58,55 +53,58 @@ describe('HomeComponent', () => {
     expect(htmlElement.textContent).toContain('Savings per month');
   });
 
-  it(`should get date input from user`, async(() => {
+  it(`should get date input from user`, fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+
     const dateInput: HTMLInputElement = fixture.debugElement.query(dateField).query(By.css('input')).nativeElement;
     const val = (1).toString();
 
-    setInputValue(dateInput, val).then(() => {
-      const monthsVal = component.trip.months.toString();
-      expect(monthsVal).toBe(val);
-    })
+    setInputValue(dateInput, val);
+
+    const monthsVal = component.trip.months.toString();
+    expect(monthsVal).toBe(val);
   }));
 
-  it(`should get cost input from user`, async(() => {
+  it(`should get cost input from user`, fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+
     const costInput: HTMLInputElement = fixture.debugElement.query(costField).query(By.css('input')).nativeElement;
     const val = (1000).toString();
 
-    setInputValue(costInput, val).then(() => {
-      const costVal = component.trip.cost.toString();
-      expect(costVal).toBe(val);
-    })
+    setInputValue(costInput, val);
+
+    const costVal = component.trip.cost.toString();
+    expect(costVal).toBe(val);
   }));
 
-  it(`should get savings input from user`, async(() => {
-    const savingsInput: HTMLInputElement = fixture.debugElement.query(savingsField).query(By.css('input')).nativeElement;
+  it(`should get savings input from user`, fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+
+    const savingsInput: HTMLInputElement = fixture.debugElement.query(savingsField).query(By.css('.form-control')).nativeElement;
     const val = (1000).toString();
 
-    setInputValue(savingsInput, val).then(() => {
-      const savingsRateVal = component.trip.savingsRate.toString();
-      expect(savingsRateVal).toBe(val);
-    })
+    setInputValue(savingsInput, val);
+    const savingsRateVal = component.trip.savingsRate.toString();
+    expect(savingsRateVal).toBe(val);
   }));
 
-  it(`should display 'Yes' when savings rate is adequate for cost, 'No' otherwise`, async(() => {
+  it(`should display 'Yes' when savings rate is adequate for cost, 'No' otherwise`, () => {
+    const button: HTMLButtonElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
     component.trip.cost = 5000;
     component.trip.months = 5;
     component.trip.savingsRate = 1000;
-    clickSubmit().then(() => {
-      expect(component.result).toBe('Yes')
-    })
-  }));
 
-  function clickSubmit() {
-    const button: HTMLButtonElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
     button.click();
-    button.dispatchEvent(new Event('click'));
-    return fixture.whenStable();
-  }
+
+    expect(component.result).toBe('Yes');
+  });
 
   function setInputValue(inputElement: HTMLInputElement, value: string) {
     inputElement.value = value;
     inputElement.dispatchEvent(new Event('input'));
-    return fixture.whenStable();
+    tick();
   }
 });
