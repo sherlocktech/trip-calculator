@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
+import { DateAdapterService } from './date-adapter.service';
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 
@@ -21,7 +22,7 @@ import { FormComponent } from './form/form.component';
     BrowserAnimationsModule,
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [{provide: NgbDateAdapter, useClass: DateAdapterService}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

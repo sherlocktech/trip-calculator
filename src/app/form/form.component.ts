@@ -20,22 +20,4 @@ export class FormComponent {
       this.result = 'No';
     }
   }
-
-  // TODO: Remove this
-  get diagnostic() { return JSON.stringify(this.trip); }
-
-  onCostInput(cost: string) {
-    const c = parseFloat(cost);
-    this.trip.cost = isNaN(c) ? 0 : c;
-  }
-
-  onDateInput(date: string) {
-    const d = parseFloat(date);
-    this.trip.months = isNaN(d) ? 0 : d;
-  }
-
-  onSavingsRateInput(savingsRate: string) {
-    const sr = parseFloat(savingsRate);
-    this.trip.savingsRate = isNaN(sr) ? 0 : sr;
-  }
 }

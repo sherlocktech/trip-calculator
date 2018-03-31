@@ -1,4 +1,5 @@
 import { HomePage } from './pages/home.po';
+import * as moment from 'moment';
 
 // Christina has heard about a cool new app that will
 // help her decide if she is saving enough for her upcoming
@@ -21,8 +22,8 @@ describe('trip-calculator Homepage', () => {
 
   // She is invited to enter some trip information.
   // She notices a date input labeled "Months till trip"
-  it(`should have date input labeled 'Months till trip'`, () => {
-    expect(page.getDateInputLabel()).toContain('Months till trip');
+  it(`should have date input labeled 'Trip date'`, () => {
+    expect(page.getDateInputLabel()).toContain('Trip date');
   });
 
   // She notices a text box labeled "Trip cost"
@@ -37,10 +38,11 @@ describe('trip-calculator Homepage', () => {
 
   // Christina is going to Mexico in a year, so she types
   // 12 for the number of months till her trip
-  it(`should have '12' as input to date input`, () => {
+  it(`should have date input one year from now`, () => {
     const numOfMonths = 12;
+    const date = moment().add(numOfMonths, 'months');
     page.setDate(numOfMonths);
-    expect(page.getDateInput()).toBe(numOfMonths.toString());
+    expect(page.getDateInput()).toBe(date.format('YYYY[-]MM[-]DD'));
   });
 
   // She estimates the total cost of the trip will be around
