@@ -1,11 +1,15 @@
+import { Moment } from 'moment';
+import * as moment from 'moment';
+
 export class Trip {
-  months: number;
   cost: number;
   savingsRate: number;
+  date: Moment;
   private _savings: number;
 
   get savings(): number {
-    const m = isNaN(this.months) ? 0 : this.months;
+    const now = moment();
+    const m = moment.duration(this.date.diff(now)).asMonths();
     const sr = isNaN(this.savingsRate) ? 0 : this.savingsRate;
     return m * sr;
   }

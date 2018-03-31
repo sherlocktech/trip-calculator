@@ -1,6 +1,8 @@
 import { browser, element, by } from 'protractor';
 import { AppPage } from './app.po';
 
+import * as moment from 'moment';
+
 export class HomePage extends AppPage {
   private readonly url = '/';
   private readonly dateField = element(by.css('#date-field'));
@@ -13,7 +15,7 @@ export class HomePage extends AppPage {
   }
 
   clickSubmit() {
-    element(by.tagName('button')).click();
+    element(by.css('#submit')).click();
   }
 
   getNavBrand() {
@@ -22,8 +24,9 @@ export class HomePage extends AppPage {
   }
 
   setDate(numOfMonths: number) {
+    const date = moment().add(numOfMonths, 'months');
     this.dateField.$('input').click();
-    this.dateField.$('input').sendKeys(numOfMonths);
+    this.dateField.$('input').sendKeys(date.format('YYYY[-]MM[-]DD'));
   }
 
   getDateInput() {

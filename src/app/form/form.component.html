@@ -1,9 +1,16 @@
 <h1>Trip Form</h1>
 <form (ngSubmit)="onSubmit()" #tripForm="ngForm">
   <div class="form-group" id="date-field">
-    <label for="date">Months till trip</label>
-    <input class="form-control" type="number" #date="ngModel"
-    required [(ngModel)]="trip.months" name="date">
+    <label for="date">Trip date</label>
+    <div class="input-group">
+      <input class="form-control" required name="date" placeholder="yyyy-mm-dd"
+      [(ngModel)]="trip.date" ngbDatepicker #date="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="date.toggle()" type="button">
+            <img src="../../assets/icons/calendar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="form-group" id="cost-field">

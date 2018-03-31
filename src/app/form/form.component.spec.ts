@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core
 import { DebugElement, Predicate } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+
+import * as moment from 'moment';
 
 import { FormComponent } from './form.component';
 
@@ -17,7 +20,8 @@ describe('FormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ FormComponent ],
       imports: [
-        FormsModule
+        FormsModule,
+        NgbDatepickerModule.forRoot()
       ]
     })
     .compileComponents();
@@ -32,39 +36,26 @@ describe('FormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should display 'Months till trip' as label for date field`, () => {
-    const debugElement: DebugElement = fixture.debugElement.query(dateField);
+  it(`should display 'Trip date' as label for date field`, () => {
+    const debugElement: DebugElement = fixture.debugElement.query(dateField).query(By.css('label'));
     const htmlElement: HTMLElement = debugElement.nativeElement;
 
-    expect(htmlElement.textContent).toContain('Months till trip');
+    expect(htmlElement.textContent).toBe('Trip date');
   });
 
   it(`should display 'Trip cost' as label for cost field`, () => {
-    const debugElement: DebugElement = fixture.debugElement.query(costField);
+    const debugElement: DebugElement = fixture.debugElement.query(costField).query(By.css('label'));
     const htmlElement: HTMLElement = debugElement.nativeElement;
 
-    expect(htmlElement.textContent).toContain('Trip cost');
+    expect(htmlElement.textContent).toBe('Trip cost');
   });
 
   it(`should display 'Savings per month' as label for savings field`, () => {
-    const debugElement: DebugElement = fixture.debugElement.query(savingsField);
+    const debugElement: DebugElement = fixture.debugElement.query(savingsField).query(By.css('label'));
     const htmlElement: HTMLElement = debugElement.nativeElement;
 
-    expect(htmlElement.textContent).toContain('Savings per month');
+    expect(htmlElement.textContent).toBe('Savings per month');
   });
-
-  it(`should get date input from user`, fakeAsync(() => {
-    fixture.detectChanges();
-    tick();
-
-    const dateInput: HTMLInputElement = fixture.debugElement.query(dateField).query(By.css('input')).nativeElement;
-    const val = (1).toString();
-
-    setInputValue(dateInput, val);
-
-    const monthsVal = component.trip.months.toString();
-    expect(monthsVal).toBe(val);
-  }));
 
   it(`should get cost input from user`, fakeAsync(() => {
     fixture.detectChanges();
@@ -93,9 +84,11 @@ describe('FormComponent', () => {
 
   it(`should display 'Yes' when savings rate is adequate for cost, 'No' otherwise`, () => {
     const button: HTMLButtonElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
+    const now = moment();
+
     component.trip.cost = 5000;
-    component.trip.months = 5;
-    component.trip.savingsRate = 1000;
+    component.trip.date = now.clone().add(1, 'months');
+    component.trip.savingsRate = 5000;
 
     button.click();
 

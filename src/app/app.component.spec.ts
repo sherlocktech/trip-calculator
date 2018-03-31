@@ -19,8 +19,7 @@ describe('AppComponent', () => {
       ],
       imports: [
         FormsModule,
-        NoopAnimationsModule,
-        NgbModule
+        NgbModule.forRoot()
       ]
     }).compileComponents();
   }));
