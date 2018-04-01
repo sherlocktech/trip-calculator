@@ -31,9 +31,14 @@ describe('trip-calculator Homepage', () => {
     expect(page.getTripCostTextBoxLabel()).toContain('Trip cost');
   });
 
-  // She notices a text box labelled "Savings per month"
+  // She notices a text box labeled "Savings per month"
   it(`should have text box labeled 'Savings per month'`, () => {
     expect(page.getSavingsRateTextBoxLabel()).toContain('Savings per month');
+  });
+
+  // She notices a text box labeled "Current Savings"
+  it(`should have text box labeled 'Current Savings'`, () => {
+    expect(page.getBaseSavingsTextBoxLabel()).toContain('Current Savings');
   });
 
   // Christina is going to Mexico in a year, so she types
@@ -59,6 +64,14 @@ describe('trip-calculator Homepage', () => {
     const savingsRate = 200;
     page.setSavingsRate(savingsRate);
     expect(page.getSavingsRateInput()).toBe(savingsRate.toString());
+  });
+
+  // Christina has already saved $100.
+  // She inputs "100" in the current savings text box
+  it(`should have '100' as input to savings rate input`, () => {
+    const savings = 100;
+    page.setBaseSavings(savings);
+    expect(page.getBaseSavingsInput()).toBe(savings.toString());
   });
 
   // When she clicks Submit, the page updates and has "Yes" written

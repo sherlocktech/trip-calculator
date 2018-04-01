@@ -8,6 +8,7 @@ export class HomePage extends AppPage {
   private readonly dateField = element(by.css('#date-field'));
   private readonly costField = element(by.css('#cost-field'));
   private readonly savingsField = element(by.css('#savings-field'));
+  private readonly baseSavingsField = element(by.css('#base-savings-field'));
   private readonly resultField = element(by.css('#result-field'));
 
   navigateTo() {
@@ -61,6 +62,19 @@ export class HomePage extends AppPage {
 
   getSavingsRateTextBoxLabel() {
     return this.savingsField.$('label').getText();
+  }
+
+  setBaseSavings(savings: number) {
+    this.baseSavingsField.$('input').click();
+    this.baseSavingsField.$('input').sendKeys(savings);
+  }
+
+  getBaseSavingsInput() {
+    return this.baseSavingsField.$('input').getAttribute('value');
+  }
+
+  getBaseSavingsTextBoxLabel() {
+    return this.baseSavingsField.$('label').getText();
   }
 
   getResult() {

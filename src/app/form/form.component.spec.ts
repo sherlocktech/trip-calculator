@@ -15,6 +15,7 @@ describe('FormComponent', () => {
   const dateField: Predicate<DebugElement> = By.css('#date-field');
   const costField: Predicate<DebugElement> = By.css('#cost-field');
   const savingsField: Predicate<DebugElement> = By.css('#savings-field');
+  const baseSavingsField: Predicate<DebugElement> = By.css('#base-savings-field');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -50,11 +51,18 @@ describe('FormComponent', () => {
     expect(htmlElement.textContent).toBe('Trip cost');
   });
 
-  it(`should display 'Savings per month' as label for savings field`, () => {
+  it(`should display 'Savings per month' as label for savings rate field`, () => {
     const debugElement: DebugElement = fixture.debugElement.query(savingsField).query(By.css('label'));
     const htmlElement: HTMLElement = debugElement.nativeElement;
 
     expect(htmlElement.textContent).toBe('Savings per month');
+  });
+
+  it(`should display 'Current Savings' as label for savings field`, () => {
+    const debugElement: DebugElement = fixture.debugElement.query(baseSavingsField).query(By.css('label'));
+    const htmlElement: HTMLElement = debugElement.nativeElement;
+
+    expect(htmlElement.textContent).toBe('Current Savings');
   });
 
   it(`should get cost input from user`, fakeAsync(() => {
@@ -70,7 +78,7 @@ describe('FormComponent', () => {
     expect(costVal).toBe(val);
   }));
 
-  it(`should get savings input from user`, fakeAsync(() => {
+  it(`should get savings rate input from user`, fakeAsync(() => {
     fixture.detectChanges();
     tick();
 
@@ -82,11 +90,23 @@ describe('FormComponent', () => {
     expect(savingsRateVal).toBe(val);
   }));
 
+  it(`should get current savings input from user`, fakeAsync(() => {
+    fixture.detectChanges();
+    tick();
+
+    const savingsInput: HTMLInputElement = fixture.debugElement.query(baseSavingsField).query(By.css('.form-control')).nativeElement;
+    const val = (1000).toString();
+
+    setInputValue(savingsInput, val);
+    const baseSavingsVal = component.trip.baseSavings.toString();
+    expect(baseSavingsVal).toBe(val);
+  }));
+
   it(`should display 'Yes' when savings rate is adequate for cost, 'No' otherwise`, () => {
     const button: HTMLButtonElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
     const now = moment();
 
-    component.trip.cost = 5000;
+    component.trip.cost = 500;
     component.trip.date = now.clone().add(1, 'months');
     component.trip.savingsRate = 5000;
 
