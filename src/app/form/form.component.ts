@@ -14,7 +14,7 @@ export class FormComponent {
 
   onSubmit() {
     this.submitted = true;
-    if (this.trip.savings >= this.trip.cost) {
+    if (this.trip.savingsAdequate) {
       this.result = 'Yes';
     } else {
       this.result = 'No';

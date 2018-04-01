@@ -25,6 +25,12 @@
     required [(ngModel)]="trip.savingsRate" name="savingsRate">
   </div>
 
+  <div class="form-group" id="base-savings-field">
+    <label for="baseSavings">Current Savings</label>
+    <input class="form-control" type="number" #baseSavings="ngModel"
+    [(ngModel)]="trip.baseSavings" name="baseSavings">
+  </div>
+
   <button type="submit" class="btn" id="submit"
   [disabled]="tripForm.form.invalid">
     Submit
