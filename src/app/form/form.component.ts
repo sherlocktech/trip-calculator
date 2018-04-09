@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Trip } from 'app/trip';
+import { Result } from 'app/result';
+import { CalculatorService } from 'app/calculator.service';
 
 @Component({
   selector: 'app-form',
@@ -7,17 +9,15 @@ import { Trip } from 'app/trip';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent {
-  result: string;
+  result = new Result();
   trip = new Trip();
 
   submitted = false;
 
+  constructor(private calc: CalculatorService) { }
+
   onSubmit() {
     this.submitted = true;
-    if (this.trip.savingsAdequate) {
-      this.result = 'Yes';
-    } else {
-      this.result = 'No';
-    }
+    this.result = this.calc.calculateResults(this.trip);
   }
 }

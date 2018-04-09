@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
-import { DebugElement, Predicate } from '@angular/core';
+import { DebugElement, Predicate, Component, Input } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
@@ -7,10 +7,12 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
 import { FormComponent } from './form.component';
+import { CalculatorService } from 'app/calculator.service';
 
 describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
+  let calculatorServiceSpy: jasmine.SpyObj<CalculatorService>;
 
   const dateField: Predicate<DebugElement> = By.css('#date-field');
   const costField: Predicate<DebugElement> = By.css('#cost-field');
@@ -18,14 +20,22 @@ describe('FormComponent', () => {
   const baseSavingsField: Predicate<DebugElement> = By.css('#base-savings-field');
 
   beforeEach(async(() => {
+    const spy = jasmine.createSpyObj('CalculatorService', ['calculateResults'])
+
     TestBed.configureTestingModule({
-      declarations: [ FormComponent ],
+      declarations: [
+        FormComponent,
+        ResultsStubComponent
+      ],
       imports: [
         FormsModule,
         NgbDatepickerModule.forRoot()
-      ]
+      ],
+      providers: [{ provide: CalculatorService, useValue: spy }]
     })
     .compileComponents();
+
+    calculatorServiceSpy = TestBed.get(CalculatorService);
   }));
 
   beforeEach(() => {
@@ -102,22 +112,16 @@ describe('FormComponent', () => {
     expect(baseSavingsVal).toBe(val);
   }));
 
-  it(`should display 'Yes' when savings rate is adequate for cost, 'No' otherwise`, () => {
-    const button: HTMLButtonElement = fixture.debugElement.query(By.css('#submit')).nativeElement;
-    const now = moment();
-
-    component.trip.cost = 500;
-    component.trip.date = now.clone().add(1, 'months');
-    component.trip.savingsRate = 5000;
-
-    button.click();
-
-    expect(component.result).toBe('Yes');
-  });
-
   function setInputValue(inputElement: HTMLInputElement, value: string) {
     inputElement.value = value;
     inputElement.dispatchEvent(new Event('input'));
     tick();
   }
+
+  @Component({selector: 'app-results', template: ''})
+  class ResultsStubComponent {
+    @Input()results: any;
+  }
 });
+
+

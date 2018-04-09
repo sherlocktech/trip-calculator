@@ -37,7 +37,4 @@
   </button>
 </form>
 
-
-<div class="card" [hidden]="!submitted" id="result-field">
-  <div class="card-body">{{result}}</div>
-</div>
+<app-results [results]="result" [hidden]="!submitted"></app-results>

@@ -1,11 +1,8 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
-import { FormComponent } from 'app/form/form.component';
-
 
 describe('AppComponent', () => {
   let app: AppComponent;
@@ -15,10 +12,9 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        FormComponent
+        FormStubComponent
       ],
       imports: [
-        FormsModule,
         NgbModule.forRoot()
       ]
     }).compileComponents();
@@ -32,4 +28,9 @@ describe('AppComponent', () => {
   it('should create the app', async(() => {
     expect(app).toBeDefined();
   }));
+
+  @Component({selector: 'app-form', template: ''})
+  class FormStubComponent {}
 });
+
+
