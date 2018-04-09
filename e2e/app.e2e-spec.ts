@@ -76,9 +76,9 @@ describe('trip-calculator Homepage', () => {
 
   // When she clicks Submit, the page updates and has "Yes" written
   // underneath her input
-  it(`should display 'Yes'`, () => {
+  it(`should display 'Congrats!'`, () => {
     page.clickSubmit();
-    expect(page.getResult()).toBe('Yes');
+    expect(page.getResult()).toContain('Congrats!');
   })
 });
 
