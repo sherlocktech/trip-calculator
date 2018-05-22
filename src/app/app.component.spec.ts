@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
+import { FormComponent } from 'app/form/form.component';
+
 
 describe('AppComponent', () => {
   let app: AppComponent;
@@ -32,5 +34,3 @@ describe('AppComponent', () => {
   @Component({selector: 'app-form', template: ''})
   class FormStubComponent {}
 });
-
-

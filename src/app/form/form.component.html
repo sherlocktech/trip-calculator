@@ -1,5 +1,5 @@
 <h1>Trip Form</h1>
-<form (ngSubmit)="onSubmit()" #tripForm="ngForm">
+<form (ngSubmit)="onSubmit()" #tripForm="ngForm" class="mb-3">
   <div class="form-group" id="date-field">
     <label for="date">Trip date</label>
     <div class="input-group">
@@ -7,7 +7,7 @@
       [(ngModel)]="trip.date" ngbDatepicker #date="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" (click)="date.toggle()" type="button">
-            <img src="../../assets/icons/calendar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          <img src="../../assets/icons/calendar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
         </button>
       </div>
     </div>
@@ -35,6 +35,8 @@
   [disabled]="tripForm.form.invalid">
     Submit
   </button>
+
+  <a class="btn btn-primary" href="#resultEl" role="button" [hidden]="!submitted">Scroll to results</a>
 </form>
 
-<app-results [results]="result" [hidden]="!submitted"></app-results>
+<app-results [results]="result" [hidden]="!submitted" id="resultEl"></app-results>
