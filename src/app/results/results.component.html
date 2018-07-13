@@ -1,0 +1,11 @@
+<div class="card transparent-bg mb-3" id="result-field">
+  <div class="card-body">
+    <p *ngIf="results.savingsAdequate" class="lead">Congrats! You'll have enough for your trip!</p>
+    <p *ngIf="!results.savingsAdequate" class="lead">Looks like you'll need to save more for your trip.</p>
+    <ul class="list-group">
+      <li class="list-group-item">You will have saved {{results.savingsForTrip | currency}} by your trip date.</li>
+      <li *ngIf="results.savingsAdequate" class="list-group-item">You'll have {{results.savingsDiff * -1 | currency}} extra by your trip date.</li>
+      <li *ngIf="!results.savingsAdequate" class="list-group-item">You'll need {{results.savingsDiff | currency}} more by your trip date.</li>
+    </ul>
+  </div>
+</div>

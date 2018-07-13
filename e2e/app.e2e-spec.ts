@@ -1,53 +1,86 @@
-import { TripCalculatorPage } from './app.po';
+import { HomePage } from './pages/home.po';
+import * as moment from 'moment';
 
 // Christina has heard about a cool new app that will
 // help her decide if she is saving enough for her upcoming
-// trip. She goes to check out its homepage
+// trip.
+describe('trip-calculator Homepage', () => {
+  const page = new HomePage();
 
-// She notices the page title and header mention trip calculator
-/**
- * TEST GOES HERE
- */
+  // She goes to check out its homepage
+  page.navigateTo();
 
-// She is invited to enter some trip information.
-// She notices a date input labelled "Trip date"
-/**
- * TEST GOES HERE
- */
+  // She notices the page title
+  it(`should have as title 'TripCalculator'`, () => {
+    expect(page.getTitle()).toBe('TripCalculator');
+  });
 
-// She notices a text box labelled "Trip cost"
-/**
- * TEST GOES HERE
- */
+  // She notices the header mentions trip calculator
+  it(`should have 'Trip Calculator' in nav`, () => {
+    expect(page.getNavBrand()).toBe('Trip Calculator');
+  });
 
-// She notices a text box labelled "Savings rate"
-/**
- * TEST GOES HERE
- */
+  // She is invited to enter some trip information.
+  // She notices a date input labeled "Months till trip"
+  it(`should have date input labeled 'Trip date'`, () => {
+    expect(page.getDateInputLabel()).toContain('Trip date');
+  });
 
-// Christina is going to Mexico in a year, so she selects
-// a date one year from now for the trip date
-/**
- * TEST GOES HERE
- */
+  // She notices a text box labeled "Trip cost"
+  it(`should have text box labeled 'Trip cost'`, () => {
+    expect(page.getTripCostTextBoxLabel()).toContain('Trip cost');
+  });
 
-// She estimates the total cost of the trip will be around
-// $1,500. She enters "1500" in the trip cost text box
-/**
- * TEST GOES HERE
- */
+  // She notices a text box labeled "Savings per month"
+  it(`should have text box labeled 'Savings per month'`, () => {
+    expect(page.getSavingsRateTextBoxLabel()).toContain('Savings per month');
+  });
 
-// Christina is saving $200 towards her trip every month.
-// She inputs "200" in the savings rate text box
-/**
- * TEST GOES HERE
- */
+  // She notices a text box labeled "Current Savings"
+  it(`should have text box labeled 'Current Savings'`, () => {
+    expect(page.getBaseSavingsTextBoxLabel()).toContain('Current Savings');
+  });
 
-// When she hits enter, the page updates and has "Yes" written
-// underneath her input
-/**
- * TEST GOES HERE
- */
+  // Christina is going to Mexico in a year, so she types
+  // 12 for the number of months till her trip
+  it(`should have date input one year from now`, () => {
+    const numOfMonths = 12;
+    const date = moment().add(numOfMonths, 'months');
+    page.setDate(numOfMonths);
+    expect(page.getDateInput()).toBe(date.format('YYYY[-]MM[-]DD'));
+  });
+
+  // She estimates the total cost of the trip will be around
+  // $1,500. She enters "1500" in the trip cost text box
+  it(`should have '1500' as input to trip cost input`, () => {
+    const tripCost = 1500;
+    page.setTripCost(tripCost);
+    expect(page.getTripCostInput()).toBe(tripCost.toString());
+  });
+
+  // Christina is saving $200 towards her trip every month.
+  // She inputs "200" in the savings rate text box
+  it(`should have '200' as input to savings rate input`, () => {
+    const savingsRate = 200;
+    page.setSavingsRate(savingsRate);
+    expect(page.getSavingsRateInput()).toBe(savingsRate.toString());
+  });
+
+  // Christina has already saved $100.
+  // She inputs "100" in the current savings text box
+  it(`should have '100' as input to savings rate input`, () => {
+    const savings = 100;
+    page.setBaseSavings(savings);
+    expect(page.getBaseSavingsInput()).toBe(savings.toString());
+  });
+
+  // When she clicks Submit, the page updates and has "Yes" written
+  // underneath her input
+  it(`should display 'Congrats!'`, () => {
+    page.clickSubmit();
+    expect(page.getResult()).toContain('Congrats!');
+  })
+});
 
 // Happy to know that she is saving enough, Christina shares
 // the url with her friend Hannah who is also planning a trip.
@@ -73,17 +106,3 @@ import { TripCalculatorPage } from './app.po';
 // When she hits enter, the page updates and has "No" written
 // underneath her input. Dissappointed to see she isn't saving
 // enough, Hannah makes plans to adjust her savings rate.
-
-
-describe('trip-calculator App', () => {
-  let page: TripCalculatorPage;
-
-  beforeEach(() => {
-    page = new TripCalculatorPage();
-  });
-
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
-});

@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Jura:300|Open+Sans');
+
+nav {
+  background-color: transparent;
+} 
+
+html, body {
+  font-family: 'Josefin Sans', sans-serif;
+  height: 100%;
+}
+
+#app-form {
+  max-width: 600px;
+}
+
+.transparent-bg {
+  margin-top: 20px;
+  background-color: rgba(170, 220, 233, 0.2);
+}
+
+.landing-img {
+  background-image: url('./assets/images/china_background.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
