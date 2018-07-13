@@ -5,8 +5,8 @@ enough for upcoming trips.
 
 ## Development
 
-This project has yet to launch and is currently in rapid development. 
-Read this guide to get your environment ready and contribute.
+This project is actively developed privately on GitLab. If you would like access to this repository, please email me
+ at [sean.stamm5@gmail.com](mailto:sean.stamm5@gmail.com).
 
 ### Angular
 
