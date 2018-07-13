@@ -1,24 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+
+import { DateAdapterService } from './date-adapter.service';
+import { CalculatorService } from 'app/calculator.service';
 
 import { AppComponent } from './app.component';
-import { CalculatorFormComponent } from './calculator-form.component';
+import { FormComponent } from './form/form.component';
+import { ResultsComponent } from './results/results.component';
 
-import { CalculatorService } from './calculator.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalculatorFormComponent
+    FormComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    BrowserAnimationsModule,
+    NgbModule.forRoot()
   ],
-  providers: [CalculatorService],
+  providers: [
+    {provide: NgbDateAdapter, useClass: DateAdapterService},
+    CalculatorService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

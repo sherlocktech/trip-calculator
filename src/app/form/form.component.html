@@ -1,0 +1,42 @@
+<h1>Trip Form</h1>
+<form (ngSubmit)="onSubmit()" #tripForm="ngForm" class="mb-3">
+  <div class="form-group" id="date-field">
+    <label for="date">Trip date</label>
+    <div class="input-group">
+      <input class="form-control" required name="date" placeholder="yyyy-mm-dd"
+      [(ngModel)]="trip.date" ngbDatepicker #date="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="date.toggle()" type="button">
+          <img src="../../assets/icons/calendar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" id="cost-field">
+    <label for="cost">Trip cost</label>
+    <input class="form-control" type="number" #cost="ngModel"
+    required [(ngModel)]="trip.cost" name="cost">
+  </div>
+
+  <div class="form-group" id="savings-field">
+    <label for="savingsRate">Savings per month</label>
+    <input class="form-control" type="number" #savingsRate="ngModel"
+    required [(ngModel)]="trip.savingsRate" name="savingsRate">
+  </div>
+
+  <div class="form-group" id="base-savings-field">
+    <label for="baseSavings">Current Savings</label>
+    <input class="form-control" type="number" #baseSavings="ngModel"
+    [(ngModel)]="trip.baseSavings" name="baseSavings">
+  </div>
+
+  <button type="submit" class="btn" id="submit"
+  [disabled]="tripForm.form.invalid">
+    Submit
+  </button>
+
+  <a class="btn btn-primary" href="#resultEl" role="button" [hidden]="!submitted">Scroll to results</a>
+</form>
+
+<app-results [results]="result" [hidden]="!submitted" id="resultEl"></app-results>
